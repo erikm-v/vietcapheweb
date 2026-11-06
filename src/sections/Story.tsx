@@ -5,7 +5,7 @@ import { LogoMark } from "../components/ui";
 import { mailto } from "../config";
 
 const letter =
-  "We started VietCaPhe to show Australia what *Vietnamese* *robusta* can really taste like. You brewed it in your phin, poured it over condensed milk and told us it was the real thing. Thank you. Selling bag by bag, we could only ever reach so many kitchens. By supplying *roasters* with our green beans, the same coffee can reach *cafés,* *offices* and *homes* right across the country. More impact, more great robusta in Australia, and more people discovering what it can be.";
+  "We started VietCaPhe to show Australia what *Vietnamese* *robusta* can really taste like. Whether you brewed it in a phin, an espresso machine, a plunger or a cold brew jar, you loved it and told us it tasted just like Vietnam. Thank you. Selling bag by bag, we could only ever reach so many kitchens. By supplying *roasters* with our green beans, the same coffee can reach *cafés,* *offices* and *homes* right across the country. More impact, more great robusta in Australia, and more people discovering what it can be.";
 
 const notes = [
   {
@@ -90,7 +90,7 @@ export function Story() {
               className="font-display text-[clamp(1.5rem,2.6vw,2.3rem)] font-semibold leading-[1.28] tracking-tight"
             />
             <Reveal>
-              <p className="mt-8 text-lg text-ink/60">Erik and the VietCaPhe team</p>
+              <p className="mt-8 text-lg text-ink/60">The VietCaPhe team</p>
             </Reveal>
 
             <div className="mt-14 grid gap-4 sm:grid-cols-3">
