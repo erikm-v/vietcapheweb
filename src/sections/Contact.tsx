@@ -2,7 +2,6 @@ import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, Check, Copy, Send } from "lucide-react";
 import { Reveal, SplitText, ease } from "../components/motion";
-import { Eyebrow } from "../components/ui";
 import { mailto, site } from "../config";
 
 const roles = ["Roaster", "Café / hospitality", "Green buyer", "Past customer", "Other"];
@@ -15,7 +14,7 @@ const perks = [
 ];
 
 const field =
-  "w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-cream placeholder:text-cream/30 outline-none transition focus:border-orange/60 focus:bg-white/[0.05] focus:ring-4 focus:ring-orange/10";
+  "w-full rounded-2xl border-2 border-ink/10 bg-white px-4 py-3.5 text-ink placeholder:text-ink/40 outline-none transition focus:border-ink";
 
 type Status = "idle" | "sending" | "sent";
 
@@ -29,24 +28,17 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative isolate overflow-hidden py-24 sm:py-32">
-      <div className="absolute inset-0 -z-10">
-        <div className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_60%_60%_at_50%_100%,black,transparent)]" />
-        <div className="animate-aurora absolute -bottom-1/3 left-1/2 size-[70vw] -translate-x-1/2 rounded-full bg-orange/20 blur-[140px]" />
-        <div className="absolute inset-x-0 top-0 h-72 bg-linear-to-b from-ink to-transparent" />
-      </div>
-
+    <section
+      id="contact"
+      className="relative -mt-16 rounded-t-[2.5rem] bg-ink pb-36 pt-24 text-cream sm:-mt-20 sm:rounded-t-[3.5rem] sm:pb-44 sm:pt-32"
+    >
       <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
         <div>
-          <Reveal>
-            <Eyebrow>Get in touch</Eyebrow>
-          </Reveal>
-          <h2 className="mt-6 font-display text-[clamp(2.6rem,6vw,5.5rem)] font-extrabold leading-[0.92] tracking-[-0.035em]">
-            <SplitText text="Let's put robusta on" />{" "}
-            <SplitText text="more menus." wordClassName="text-gradient" delay={0.25} />
+          <h2 className="font-display text-[clamp(2.8rem,6vw,5.75rem)] font-extrabold leading-[0.92] tracking-[-0.04em]">
+            <SplitText text="Let's put robusta on" /> <SplitText text="more menus." wordClassName="text-orange" delay={0.25} />
           </h2>
           <Reveal delay={0.15}>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-cream/60">
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-cream/70">
               Roaster, café, green buyer or just curious: tell us what you're working on and we'll come back with
               samples, availability and pricing.
             </p>
@@ -54,13 +46,13 @@ export function Contact() {
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <a
                 href={mailto("Wholesale enquiry")}
-                className="font-display text-2xl font-bold tracking-tight underline decoration-orange/50 decoration-2 underline-offset-8 transition hover:decoration-orange sm:text-3xl"
+                className="font-display text-2xl font-bold tracking-tight text-yellow underline decoration-2 underline-offset-8 transition hover:text-orange sm:text-3xl"
               >
                 {site.email}
               </a>
               <button
                 onClick={copyEmail}
-                className="relative grid size-10 place-items-center rounded-full border border-white/15 text-cream/70 transition hover:border-white/30 hover:text-cream"
+                className="grid size-10 place-items-center rounded-full bg-cream/10 text-cream transition hover:bg-cream hover:text-ink"
                 aria-label="Copy email address"
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -71,7 +63,7 @@ export function Contact() {
                     exit={{ scale: 0.5, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {copied ? <Check className="size-4 text-leaf" /> : <Copy className="size-4" />}
+                    {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
                   </motion.span>
                 </AnimatePresence>
               </button>
@@ -79,8 +71,8 @@ export function Contact() {
 
             <ul className="mt-10 grid gap-3 sm:grid-cols-2">
               {perks.map((p) => (
-                <li key={p} className="flex items-center gap-3 text-cream/70">
-                  <span className="grid size-6 place-items-center rounded-full bg-orange/15 text-orange">
+                <li key={p} className="flex items-center gap-3 text-cream/80">
+                  <span className="grid size-6 shrink-0 place-items-center rounded-full bg-orange text-ink">
                     <Check className="size-3.5" strokeWidth={3} />
                   </span>
                   {p}
@@ -102,6 +94,7 @@ function ContactForm() {
   const [role, setRole] = useState(roles[0]);
   const [picked, setPicked] = useState<string[]>([interests[0]]);
   const [status, setStatus] = useState<Status>("idle");
+  const isCustomer = role === "Past customer";
 
   function toggle(i: string) {
     setPicked((p) => (p.includes(i) ? p.filter((x) => x !== i) : [...p, i]));
@@ -114,7 +107,6 @@ function ContactForm() {
     const business = String(fd.get("business") ?? "");
     const email = String(fd.get("email") ?? "");
     const message = String(fd.get("message") ?? "");
-    const isCustomer = role === "Past customer";
 
     const subject = isCustomer ? `Message from a VietCaPhe customer: ${name}` : `Wholesale enquiry: ${business || name}`;
     const lines = [
@@ -146,39 +138,39 @@ function ContactForm() {
   }
 
   return (
-    <div className="beam-border relative rounded-[2rem] border border-white/10 bg-ink-2/80 p-6 shadow-2xl shadow-black/50 backdrop-blur-xl sm:p-9">
+    <div className="rounded-[2rem] bg-cream p-6 text-ink sm:p-9">
       <AnimatePresence mode="wait" initial={false}>
         {status === "sent" ? (
           <motion.div
             key="sent"
-            initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease }}
             className="flex min-h-[460px] flex-col items-center justify-center text-center"
           >
             <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
+              initial={{ scale: 0, rotate: -30 }}
+              animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", bounce: 0.5, delay: 0.1 }}
-              className="grid size-16 place-items-center rounded-full bg-orange text-ink shadow-[0_0_40px_rgb(255_106_19/0.6)]"
+              className="grid size-16 place-items-center rounded-full bg-orange text-ink"
             >
               <Check className="size-8" strokeWidth={3} />
             </motion.span>
             <h3 className="mt-6 font-display text-3xl font-bold tracking-tight">Thanks, we'll be in touch.</h3>
-            <p className="mt-3 max-w-sm text-cream/60">
+            <p className="mt-3 max-w-sm text-ink/70">
               {site.formEndpoint
                 ? "Your message is on its way."
                 : "Your email app should have opened with your message ready to send. If it didn't, email us directly at "}
               {!site.formEndpoint && (
-                <a href={mailto("Wholesale enquiry")} className="text-amber underline-offset-4 hover:underline">
+                <a href={mailto("Wholesale enquiry")} className="font-semibold underline underline-offset-4">
                   {site.email}
                 </a>
               )}
             </p>
             <button
               onClick={() => setStatus("idle")}
-              className="mt-8 text-sm font-medium text-cream/60 underline-offset-4 hover:text-cream hover:underline"
+              className="mt-8 text-sm font-semibold text-ink/60 underline-offset-4 hover:text-ink hover:underline"
             >
               Send another message
             </button>
@@ -193,7 +185,7 @@ function ContactForm() {
             className="space-y-5"
           >
             <fieldset>
-              <legend className="mb-3 font-mono text-[11px] uppercase tracking-[0.18em] text-cream/45">I am a</legend>
+              <legend className="mb-3 font-semibold">I am a…</legend>
               <div className="flex flex-wrap gap-2">
                 {roles.map((r) => (
                   <button
@@ -201,20 +193,17 @@ function ContactForm() {
                     key={r}
                     onClick={() => setRole(r)}
                     aria-pressed={role === r}
-                    className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                      role === r ? "text-ink" : "text-cream/70 hover:text-cream"
+                    className={`relative rounded-full border-2 px-4 py-2 text-sm font-semibold transition-colors ${
+                      role === r ? "border-ink text-cream" : "border-ink/15 text-ink/75 hover:border-ink/40 hover:text-ink"
                     }`}
                   >
                     {role === r && (
                       <motion.span
                         layoutId="role-pill"
-                        className="absolute inset-0 rounded-full bg-orange"
+                        className="absolute -inset-0.5 rounded-full bg-ink"
                         transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                       />
                     )}
-                    <span
-                      className={`absolute inset-0 rounded-full border ${role === r ? "border-transparent" : "border-white/12"}`}
-                    />
                     <span className="relative">{r}</span>
                   </button>
                 ))}
@@ -230,7 +219,7 @@ function ContactForm() {
                 <span className="sr-only">Business</span>
                 <input
                   name="business"
-                  placeholder={role === "Past customer" ? "Business (optional)" : "Roastery / business"}
+                  placeholder={isCustomer ? "Business (optional)" : "Roastery / business"}
                   autoComplete="organization"
                   className={field}
                 />
@@ -242,7 +231,7 @@ function ContactForm() {
             </label>
 
             <AnimatePresence initial={false}>
-              {role !== "Past customer" && (
+              {!isCustomer && (
                 <motion.fieldset
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -250,9 +239,7 @@ function ContactForm() {
                   transition={{ duration: 0.35, ease }}
                   className="overflow-hidden"
                 >
-                  <legend className="mb-3 font-mono text-[11px] uppercase tracking-[0.18em] text-cream/45">
-                    Interested in
-                  </legend>
+                  <legend className="mb-3 font-semibold">Interested in</legend>
                   <div className="flex flex-wrap gap-2 pb-1">
                     {interests.map((i) => {
                       const on = picked.includes(i);
@@ -262,23 +249,11 @@ function ContactForm() {
                           key={i}
                           onClick={() => toggle(i)}
                           aria-pressed={on}
-                          className={`flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm transition-all ${
-                            on
-                              ? "border-orange/50 bg-orange/15 text-orange"
-                              : "border-white/12 text-cream/60 hover:border-white/25 hover:text-cream"
+                          className={`flex items-center gap-1.5 rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition-all ${
+                            on ? "border-orange bg-orange text-ink" : "border-ink/15 text-ink/70 hover:border-ink/40 hover:text-ink"
                           }`}
                         >
-                          <AnimatePresence initial={false}>
-                            {on && (
-                              <motion.span
-                                initial={{ width: 0, opacity: 0 }}
-                                animate={{ width: "auto", opacity: 1 }}
-                                exit={{ width: 0, opacity: 0 }}
-                              >
-                                <Check className="size-3.5" strokeWidth={3} />
-                              </motion.span>
-                            )}
-                          </AnimatePresence>
+                          {on && <Check className="size-3.5" strokeWidth={3} />}
                           {i}
                         </button>
                       );
@@ -294,7 +269,7 @@ function ContactForm() {
                 name="message"
                 rows={4}
                 placeholder={
-                  role === "Past customer"
+                  isCustomer
                     ? "How can we help?"
                     : "Tell us about your roastery, your blends and roughly how much green you go through."
                 }
@@ -305,17 +280,14 @@ function ContactForm() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-orange px-6 py-4 font-semibold text-ink shadow-[0_10px_40px_-10px_rgb(255_106_19/0.8)] transition hover:bg-[#ff7a2b] disabled:opacity-60"
+              className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-orange px-6 py-4 text-lg font-bold text-ink transition hover:-translate-y-0.5 hover:bg-[#ff7d33] disabled:opacity-60"
             >
-              <span className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/45 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-              <span className="relative flex items-center gap-2">
-                {status === "sending" ? "Sending…" : role === "Past customer" ? "Send message" : "Send enquiry"}
-                {role === "Past customer" ? (
-                  <Send className="size-4 transition-transform group-hover:translate-x-0.5" />
-                ) : (
-                  <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                )}
-              </span>
+              {status === "sending" ? "Sending…" : isCustomer ? "Send message" : "Send enquiry"}
+              {isCustomer ? (
+                <Send className="size-4 transition-transform group-hover:translate-x-0.5" />
+              ) : (
+                <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              )}
             </button>
           </motion.form>
         )}

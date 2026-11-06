@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Plus } from "lucide-react";
 import { Reveal, SplitText, ease } from "../components/motion";
-import { Eyebrow } from "../components/ui";
 import { site } from "../config";
 
 const faqs = [
@@ -36,43 +35,35 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-24 sm:py-32">
+    <section
+      id="faq"
+      className="relative -mt-16 rounded-t-[2.5rem] bg-cream pb-36 pt-24 sm:-mt-20 sm:rounded-t-[3.5rem] sm:pb-44 sm:pt-32"
+    >
       <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-        <div>
-          <Reveal>
-            <Eyebrow>FAQ</Eyebrow>
-          </Reveal>
-          <h2 className="mt-6 font-display text-[clamp(2.4rem,5vw,4.6rem)] font-extrabold leading-[0.95] tracking-[-0.035em]">
-            <SplitText text="Questions," /> <SplitText text="answered." wordClassName="text-gradient" delay={0.15} />
-          </h2>
-        </div>
+        <h2 className="font-display text-[clamp(2.6rem,5.4vw,5rem)] font-extrabold leading-[0.95] tracking-[-0.04em]">
+          <SplitText text="Questions," /> <SplitText text="answered." wordClassName="text-orange" delay={0.15} />
+        </h2>
 
         <Reveal>
-          <div className="border-t border-white/10">
+          <div className="border-t-2 border-ink">
             {faqs.map((f, i) => {
               const isOpen = open === i;
               return (
-                <div key={f.q} className="border-b border-white/10">
+                <div key={f.q} className="border-b-2 border-ink">
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     className="group flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
-                    <span
-                      className={`font-display text-xl font-semibold tracking-tight transition-colors sm:text-2xl ${
-                        isOpen ? "text-cream" : "text-cream/75 group-hover:text-cream"
-                      }`}
-                    >
-                      {f.q}
-                    </span>
+                    <span className="font-display text-xl font-bold tracking-tight sm:text-2xl">{f.q}</span>
                     <motion.span
                       animate={{ rotate: isOpen ? 45 : 0 }}
                       transition={{ duration: 0.4, ease }}
-                      className={`grid size-10 shrink-0 place-items-center rounded-full border transition-colors ${
-                        isOpen ? "border-orange bg-orange text-ink" : "border-white/15 text-cream/70"
+                      className={`grid size-11 shrink-0 place-items-center rounded-full transition-colors ${
+                        isOpen ? "bg-orange text-ink" : "bg-ink text-cream group-hover:bg-orange group-hover:text-ink"
                       }`}
                     >
-                      <Plus className="size-5" />
+                      <Plus className="size-5" strokeWidth={2.5} />
                     </motion.span>
                   </button>
                   <AnimatePresence initial={false}>
@@ -84,7 +75,7 @@ export function Faq() {
                         transition={{ duration: 0.45, ease }}
                         className="overflow-hidden"
                       >
-                        <p className="max-w-2xl pb-7 pr-14 text-lg leading-relaxed text-cream/60">{f.a}</p>
+                        <p className="max-w-2xl pb-7 pr-14 text-lg leading-relaxed text-ink/70">{f.a}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>

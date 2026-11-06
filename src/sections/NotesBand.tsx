@@ -1,36 +1,36 @@
 import { Marquee } from "../components/motion";
-import { Sparkle } from "../components/ui";
 
-const notes = ["Cocoa", "Roasted cashew", "Honey sweetness", "Syrupy body", "Deep & strong", "Holds up in milk", "Thick crema"];
-const uses = ["Espresso blends", "Flat whites", "Cà phê sữa đá", "Cold brew", "Phin filter", "Office coffee", "Single-origin espresso"];
+const notes = ["Cocoa", "Roasted cashew", "Honey sweetness", "Syrupy body", "Deep & strong", "Holds up in milk"];
+const uses = ["Espresso blends", "Flat whites", "Cà phê sữa đá", "Cold brew", "Phin filter", "Office coffee"];
 
 export function NotesBand() {
   return (
-    <section aria-label="Tasting notes and uses" className="relative overflow-hidden py-14">
-      <div className="relative z-10 -mx-4 -rotate-2 bg-orange py-4 text-ink shadow-[0_20px_80px_-20px_rgb(255_106_19/0.6)] sm:py-5">
+    <section
+      aria-label="Tasting notes and uses"
+      className="relative overflow-hidden bg-[linear-gradient(to_bottom,var(--color-orange)_50%,var(--color-cream)_50%)] py-10"
+    >
+      <div className="relative z-10 -mx-4 -rotate-2 bg-ink py-4 text-cream sm:py-5">
         <Marquee duration={38}>
           {notes.map((n) => (
             <span
               key={n}
-              className="flex items-center gap-10 whitespace-nowrap font-display text-4xl font-extrabold uppercase tracking-tight sm:text-6xl"
+              className="flex items-center gap-8 whitespace-nowrap font-display text-4xl font-extrabold uppercase tracking-tight sm:text-6xl"
             >
               {n}
-              <Sparkle className="size-6 sm:size-8" />
+              <span className="size-3 rounded-full bg-orange sm:size-4" />
             </span>
           ))}
         </Marquee>
       </div>
-      <div className="relative -mx-4 -mt-3 rotate-1 border-y border-white/10 bg-ink-3 py-4">
-        <Marquee duration={48} reverse>
-          {uses.map((u, i) => (
+      <div className="relative -mx-4 -rotate-2 bg-yellow py-3.5 text-ink">
+        <Marquee duration={46} reverse>
+          {uses.map((u) => (
             <span
               key={u}
-              className={`flex items-center gap-10 whitespace-nowrap font-display text-2xl font-bold uppercase tracking-tight sm:text-4xl ${
-                i % 2 ? "text-outline" : "text-cream/85"
-              }`}
+              className="flex items-center gap-8 whitespace-nowrap font-display text-2xl font-bold uppercase tracking-tight sm:text-4xl"
             >
               {u}
-              <Sparkle className="size-4 text-orange sm:size-5" />
+              <span className="size-2.5 rounded-full bg-ink" />
             </span>
           ))}
         </Marquee>

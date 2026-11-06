@@ -1,86 +1,60 @@
-import { Leaf, Milk, Zap } from "lucide-react";
-import { CountUp, Reveal, SplitText, SpotlightCard } from "../components/motion";
-import { Bean, Eyebrow } from "../components/ui";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { CountUp, Reveal, SplitText } from "../components/motion";
+import { Bean } from "../components/ui";
+
+const stats = [
+  { value: <CountUp to={2} suffix="×" />, color: "text-orange", body: "Up to twice the caffeine of arabica, for a strong, steady lift." },
+  { value: <CountUp to={100} suffix="%" />, color: "text-yellow", body: "Vietnamese robusta, traceable to province and process." },
+  { value: "No. 1", color: "text-cream", body: "Vietnam grows more robusta than any other country. The Central Highlands are its heartland." },
+];
 
 export function WhyRobusta() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const beanA = useTransform(scrollYProgress, [0, 1], [80, -120]);
+  const beanB = useTransform(scrollYProgress, [0, 1], [-40, 100]);
+  const spinA = useTransform(scrollYProgress, [0, 1], [10, 70]);
+  const spinB = useTransform(scrollYProgress, [0, 1], [-30, -100]);
+
   return (
-    <section className="relative py-24 sm:py-32">
-      <div className="absolute inset-x-0 top-1/3 -z-10 mx-auto h-[500px] max-w-5xl rounded-full bg-rose/10 blur-[140px]" />
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <div>
-            <Reveal>
-              <Eyebrow>Why specialty robusta</Eyebrow>
-            </Reveal>
-            <h2 className="mt-6 font-display text-[clamp(2.4rem,5.5vw,5rem)] font-extrabold leading-[0.95] tracking-[-0.035em]">
-              <SplitText text="Robusta," /> <SplitText text="reconsidered." wordClassName="text-gradient" delay={0.15} />
-            </h2>
-          </div>
-          <Reveal delay={0.2}>
-            <p className="max-w-md text-lg leading-relaxed text-cream/60">
-              Most robusta is grown for volume. Ours is grown, picked and processed for the cup.
+    <section ref={ref} className="relative -mt-16 overflow-hidden rounded-t-[2.5rem] bg-ink pb-36 pt-24 text-cream sm:-mt-20 sm:rounded-t-[3.5rem] sm:pb-44 sm:pt-32">
+      <motion.div style={{ y: beanA, rotate: spinA }} className="pointer-events-none absolute -right-10 top-24 w-40 sm:w-56">
+        <Bean />
+      </motion.div>
+      <motion.div style={{ y: beanB, rotate: spinB }} className="pointer-events-none absolute -left-8 bottom-40 w-24 sm:w-32">
+        <Bean />
+      </motion.div>
+
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+        <h2 className="font-display text-[clamp(2.6rem,6vw,5.5rem)] font-extrabold leading-[0.92] tracking-[-0.04em]">
+          <SplitText text="Robusta," /> <SplitText text="reconsidered." wordClassName="text-orange" delay={0.15} />
+        </h2>
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end lg:gap-20">
+          <Reveal>
+            <p className="font-display text-[clamp(1.8rem,3.6vw,3.2rem)] font-bold leading-[1.05] tracking-tight">
+              Selectively harvested. Honey processed. <span className="text-yellow">Specialty grade.</span>
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-lg leading-relaxed text-cream/70">
+              Most robusta is grown for volume. Ours is grown, picked and processed for the cup. Controlled mucilage
+              fermentation gives it natural sweetness, cocoa depth and a syrupy body that cuts straight through milk,
+              without the harsh, rubbery edge commodity robusta is known for.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-4 lg:grid-cols-6">
-          <Reveal className="lg:col-span-4 lg:row-span-2">
-            <SpotlightCard className="h-full min-h-[340px] p-8 sm:p-10">
-              <Bean className="pointer-events-none absolute -bottom-24 -right-16 w-56 rotate-[30deg] opacity-70 transition-transform duration-700 group-hover:rotate-[20deg] group-hover:scale-105 sm:w-72" />
-              <div className="relative flex h-full flex-col justify-between gap-10">
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-cream/45">Not the robusta you've been warned about</p>
-                <div className="max-w-lg">
-                  <h3 className="font-display text-3xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-                    Selectively harvested. Honey processed. Specialty grade.
-                  </h3>
-                  <p className="mt-5 text-lg leading-relaxed text-cream/60">
-                    Controlled mucilage fermentation gives this robusta natural sweetness, cocoa depth and a syrupy
-                    body, without the harsh, rubbery edge commodity robusta is known for.
-                  </p>
-                </div>
+        <div className="mt-20 grid gap-10 sm:grid-cols-3 sm:gap-8">
+          {stats.map((s, i) => (
+            <Reveal key={i} delay={i * 0.1}>
+              <div className="border-t-2 border-cream/20 pt-6">
+                <p className={`font-display text-7xl font-extrabold tracking-tight sm:text-8xl ${s.color}`}>{s.value}</p>
+                <p className="mt-3 max-w-xs text-cream/70">{s.body}</p>
               </div>
-            </SpotlightCard>
-          </Reveal>
-
-          <Reveal className="lg:col-span-2" delay={0.1}>
-            <SpotlightCard className="h-full p-8" glow="rgb(255 176 31 / 0.16)">
-              <Zap className="size-6 text-amber" strokeWidth={1.75} />
-              <p className="mt-6 font-display text-7xl font-extrabold tracking-tight text-amber">
-                <CountUp to={2} suffix="×" />
-              </p>
-              <p className="mt-2 text-cream/60">Up to twice the caffeine of arabica, for a strong, steady lift.</p>
-            </SpotlightCard>
-          </Reveal>
-
-          <Reveal className="lg:col-span-2" delay={0.2}>
-            <SpotlightCard className="h-full p-8" glow="rgb(255 61 110 / 0.16)" edge="rgb(255 61 110 / 0.7)">
-              <Leaf className="size-6 text-rose" strokeWidth={1.75} />
-              <p className="mt-6 font-display text-7xl font-extrabold tracking-tight text-rose">
-                <CountUp to={100} suffix="%" />
-              </p>
-              <p className="mt-2 text-cream/60">Vietnamese robusta, traceable to province and process.</p>
-            </SpotlightCard>
-          </Reveal>
-
-          <Reveal className="lg:col-span-3" delay={0.1}>
-            <SpotlightCard className="h-full p-8" glow="rgb(163 230 53 / 0.12)" edge="rgb(163 230 53 / 0.6)">
-              <p className="font-display text-5xl font-extrabold tracking-tight text-leaf">No. 1</p>
-              <p className="mt-3 max-w-sm text-cream/60">
-                Vietnam grows more robusta than any other country. The Central Highlands are its heartland.
-              </p>
-            </SpotlightCard>
-          </Reveal>
-
-          <Reveal className="lg:col-span-3" delay={0.2}>
-            <SpotlightCard className="h-full p-8">
-              <Milk className="size-6 text-orange" strokeWidth={1.75} />
-              <h3 className="mt-6 font-display text-2xl font-bold tracking-tight">Built for milk and crema</h3>
-              <p className="mt-2 max-w-sm text-cream/60">
-                The body and cocoa cut straight through a flat white or condensed milk, and it brings thick, lasting
-                crema to an espresso blend.
-              </p>
-            </SpotlightCard>
-          </Reveal>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

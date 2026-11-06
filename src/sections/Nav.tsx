@@ -28,10 +28,8 @@ export function Nav() {
       className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4"
     >
       <nav
-        className={`mx-auto flex max-w-6xl items-center justify-between rounded-full border py-2 pl-4 pr-2 transition-all duration-500 sm:pl-5 ${
-          solid
-            ? "border-white/10 bg-ink/70 shadow-2xl shadow-black/50 backdrop-blur-xl"
-            : "border-transparent bg-transparent"
+        className={`mx-auto flex max-w-6xl items-center justify-between rounded-full py-2 pl-3 pr-2 transition-all duration-500 sm:pl-4 ${
+          solid ? "bg-paper/90 shadow-[0_8px_30px_-10px_rgb(20_13_9/0.35)] backdrop-blur-xl" : "bg-transparent"
         }`}
       >
         <a href="#top" aria-label="VietCaPhe home">
@@ -44,14 +42,14 @@ export function Nav() {
               <a
                 href={l.href}
                 onMouseEnter={() => setHovered(l.href)}
-                className="relative z-10 block px-4 py-2 text-sm text-cream/70 transition-colors hover:text-cream"
+                className="relative z-10 block px-4 py-2 text-sm font-semibold text-ink"
               >
                 {l.label}
               </a>
               {hovered === l.href && (
                 <motion.span
                   layoutId="nav-hover"
-                  className="absolute inset-0 rounded-full bg-white/[0.08]"
+                  className="absolute inset-0 rounded-full bg-ink/[0.08]"
                   transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                 />
               )}
@@ -62,14 +60,15 @@ export function Nav() {
         <div className="flex items-center gap-2">
           <a
             href="#contact"
-            className="group hidden items-center gap-1.5 rounded-full bg-orange px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-amber sm:inline-flex"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-cream transition hover:bg-black"
           >
-            Request a sample
+            <span className="hidden sm:inline">Request a sample</span>
+            <span className="sm:hidden">Sample</span>
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.04] md:hidden"
+            className="grid size-10 place-items-center rounded-full border-2 border-ink/80 md:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -85,7 +84,7 @@ export function Nav() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.3, ease }}
-            className="mx-auto mt-2 max-w-6xl rounded-3xl border border-white/10 bg-ink/90 p-3 backdrop-blur-xl md:hidden"
+            className="mx-auto mt-2 max-w-6xl rounded-3xl bg-paper p-3 shadow-xl md:hidden"
           >
             {[...links, { href: "#contact", label: "Contact" }].map((l, i) => (
               <motion.a
@@ -95,7 +94,7 @@ export function Nav() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.04 * i }}
-                className="block rounded-2xl px-4 py-3 font-display text-2xl font-semibold text-cream/80 hover:bg-white/5 hover:text-cream"
+                className="block rounded-2xl px-4 py-3 font-display text-2xl font-bold hover:bg-orange"
               >
                 {l.label}
               </motion.a>

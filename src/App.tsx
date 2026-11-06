@@ -16,11 +16,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <motion.div
-        style={{ scaleX }}
-        className="fixed inset-x-0 top-0 z-[70] h-[2px] origin-left bg-linear-to-r from-amber via-orange to-rose"
-      />
-      <div className="noise pointer-events-none fixed inset-0 z-[60] opacity-[0.07] mix-blend-overlay" />
+      <motion.div style={{ scaleX }} className="fixed inset-x-0 top-0 z-[70] h-1 origin-left bg-ink" />
       <Nav />
       <main>
         <Hero />
