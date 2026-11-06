@@ -48,10 +48,10 @@ function Sticker() {
             </textPath>
           </text>
         </svg>
+        <span className="absolute inset-0 grid place-items-center">
+          <LogoMark className="size-12 sm:size-14" />
+        </span>
       </ScrollSpin>
-      <span className="absolute inset-0 grid place-items-center">
-        <LogoMark className="size-12 sm:size-14" />
-      </span>
     </div>
   );
 }
