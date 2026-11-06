@@ -11,7 +11,7 @@ const LAUNCH = 0.27;
 const LAND = 0.79;
 
 type Key = [number, number];
-const LIFT: Key[] = [[0, 0], [0.15, -0.3], [0.28, 1], [0.4, 0.12], [0.72, 0.12], [0.8, -0.22], [0.93, 0]];
+const LIFT: Key[] = [[0, 0], [0.15, -0.25], [0.27, 1], [0.38, 0.1], [0.72, 0.1], [0.8, -0.2], [0.92, 0]];
 const CROUCH: Key[] = [[0, 0], [0.15, 1], [0.27, -0.45], [0.4, 0], [0.73, 0], [0.81, 0.75], [0.94, 0]];
 const TILT: Key[] = [[0, 0], [0.15, -0.3], [0.26, 1], [0.38, 0], [1, 0]];
 
@@ -121,14 +121,14 @@ function pose(slot: Slot, f: Farmer, i: number, q: number, t: number): Pose {
   const crouch = kf(q, CROUCH);
   const tilt = kf(q, TILT);
   const breathe = Math.sin(t * 1.6 + f.phase) * 0.004 * s;
-  const bodyDY = crouch * 0.05 * s + breathe;
+  const bodyDY = crouch * 0.025 * s + breathe;
   const rx = 0.17 * s;
   return {
     cx: slot.x,
-    cy: slot.ground - 0.5 * s - 0.16 * lift * s + bodyDY,
+    cy: slot.ground - 0.5 * s - 0.06 * lift * s + bodyDY,
     rx,
-    ry: rx * (0.27 + 0.09 * tilt),
-    roll: 0.07 * tilt * (i % 2 ? 1 : -1),
+    ry: rx * (0.27 + 0.05 * tilt),
+    roll: 0.03 * tilt * (i % 2 ? 1 : -1),
     bodyDY,
     crouch,
   };
@@ -349,7 +349,7 @@ function drawFarmer(ctx: CanvasRenderingContext2D, slot: Slot, f: Farmer, ps: Po
     const ly = ry * 0.35;
     const hx = cx + lx * c - ly * sn;
     const hy = cy + lx * sn + ly * c;
-    const [ex, ey] = joint(sx, sy, hx, hy, 0.13 * s, 0.125 * s, side);
+    const [ex, ey] = joint(sx, sy, hx, hy, 0.138 * s, 0.132 * s, side);
     ctx.strokeStyle = f.shirt;
     ctx.lineWidth = 0.05 * s;
     ctx.beginPath();
