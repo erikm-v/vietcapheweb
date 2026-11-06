@@ -1,6 +1,6 @@
 export const site = {
   email: "info@vietcaphe.com.au",
-  // Optional form backend (Formspree, Getform, etc.). When empty, the contact form opens the visitor's email app instead.
+  // Google Apps Script web app URL (ends in /exec), see apps-script/Code.gs. When empty, the contact form opens the visitor's email app instead.
   formEndpoint: "",
 };
 

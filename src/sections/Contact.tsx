@@ -107,6 +107,7 @@ function ContactForm() {
     const business = String(fd.get("business") ?? "");
     const email = String(fd.get("email") ?? "");
     const message = String(fd.get("message") ?? "");
+    const website = String(fd.get("website") ?? "");
 
     const subject = isCustomer ? `Message from a VietCaPhe customer: ${name}` : `Wholesale enquiry: ${business || name}`;
     const lines = [
@@ -122,12 +123,23 @@ function ContactForm() {
     if (site.formEndpoint) {
       setStatus("sending");
       try {
+        // Sent as text/plain so the browser skips the CORS preflight, which Apps Script can't answer.
         const res = await fetch(site.formEndpoint, {
           method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ name, business, email, role, interests: picked, message, _subject: subject }),
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            name,
+            business,
+            email,
+            role,
+            interests: isCustomer ? [] : picked,
+            message,
+            subject,
+            website,
+          }),
         });
-        if (!res.ok) throw new Error(String(res.status));
+        const result = (await res.json()) as { ok?: boolean };
+        if (!res.ok || !result.ok) throw new Error(String(res.status));
       } catch {
         window.location.href = mailto(subject, lines.join("\n"));
       }
@@ -225,6 +237,7 @@ function ContactForm() {
                 />
               </label>
             </div>
+            <input name="website" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
             <label className="block">
               <span className="sr-only">Email</span>
               <input name="email" type="email" required placeholder="Email address" autoComplete="email" className={field} />

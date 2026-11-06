@@ -21,5 +21,5 @@ To serve it on `www.vietcaphe.com.au`, add the domain under **Settings → Pages
 
 ## Editing
 
-- Contact email and the optional form backend are in `src/config.ts`. With `formEndpoint` empty, the contact form opens the visitor's email app with the message filled in. Paste a Formspree (or similar) endpoint there to receive submissions directly.
+- Contact email and the form backend are in `src/config.ts`. With `formEndpoint` empty, the contact form opens the visitor's email app with the message filled in. Set it to the Google Apps Script web app URL (script in `apps-script/Code.gs`) to have submissions emailed to you and logged in a Google Sheet. After editing the script, use **Deploy → Manage deployments → Edit → New version** so the same URL serves the new code.
 - Each section of the page is a file in `src/sections/`.
