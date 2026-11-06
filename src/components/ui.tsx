@@ -1,26 +1,16 @@
 import { useId, type AnchorHTMLAttributes, type ReactNode } from "react";
+import logoSrc from "../assets/logo.png";
 
-export function LogoMark({ className = "size-6" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <path d="M2.5 12.2 15.2 3.6a1.5 1.5 0 0 1 1.6 0l12.7 8.6c-8.6 1.8-18.4 1.8-27 0Z" fill="currentColor" />
-      <path d="M7 16h16v3.5A7.5 7.5 0 0 1 15.5 27h-1A7.5 7.5 0 0 1 7 19.5V16Z" fill="currentColor" />
-      <path
-        d="M23 17.5h1.25a2.75 2.75 0 0 1 0 5.5H22"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
+/** The VietCaPhe mark. The source art is black; pass `white` when it sits on a dark background. */
+export function LogoMark({ className = "size-6", white = false }: { className?: string; white?: boolean }) {
+  return <img src={logoSrc} alt="" aria-hidden className={`${white ? "invert" : ""} ${className}`} draggable={false} />;
 }
 
 export function Logo() {
   return (
     <span className="flex items-center gap-2.5">
-      <span className="grid size-9 place-items-center rounded-xl bg-ink text-orange">
-        <LogoMark className="size-6" />
+      <span className="grid size-10 place-items-center rounded-xl bg-ink">
+        <LogoMark white className="size-7" />
       </span>
       <span className="font-display text-lg font-extrabold tracking-tight">VIETCAPHE</span>
     </span>

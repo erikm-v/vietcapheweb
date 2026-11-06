@@ -35,22 +35,24 @@ const notes = [
 function Sticker() {
   const text = "THANK YOU AUSTRALIA • THANK YOU AUSTRALIA • ";
   return (
-    <ScrollSpin className="relative size-32 sm:size-40" speed={0.1}>
-      <svg viewBox="0 0 200 200" className="absolute inset-0 size-full">
-        <circle cx="100" cy="100" r="100" className="fill-yellow" />
-        <defs>
-          <path id="sticker-ring" d="M 100,100 m -74,0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0" />
-        </defs>
-        <text className="fill-ink font-display text-[19px] font-extrabold" letterSpacing="1.5">
-          <textPath href="#sticker-ring" textLength="462" lengthAdjust="spacing">
-            {text}
-          </textPath>
-        </text>
-      </svg>
+    <div className="relative size-32 sm:size-40">
+      <ScrollSpin className="absolute inset-0" speed={0.1}>
+        <svg viewBox="0 0 200 200" className="absolute inset-0 size-full">
+          <circle cx="100" cy="100" r="100" className="fill-yellow" />
+          <defs>
+            <path id="sticker-ring" d="M 100,100 m -74,0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0" />
+          </defs>
+          <text className="fill-ink font-display text-[19px] font-extrabold" letterSpacing="1.5">
+            <textPath href="#sticker-ring" textLength="462" lengthAdjust="spacing">
+              {text}
+            </textPath>
+          </text>
+        </svg>
+      </ScrollSpin>
       <span className="absolute inset-0 grid place-items-center">
-        <LogoMark className="size-12 text-ink sm:size-14" />
+        <LogoMark className="size-12 sm:size-14" />
       </span>
-    </ScrollSpin>
+    </div>
   );
 }
 
