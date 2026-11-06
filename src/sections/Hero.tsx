@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
-import { SplashScene } from "../components/SplashScene";
+import { FarmersScene } from "../components/FarmersScene";
 import { ButtonLink, Mark } from "../components/ui";
 import { Magnetic, SplitText, ease } from "../components/motion";
 
@@ -29,14 +29,14 @@ export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.6 });
-  const cueOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
+  const cueOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   return (
     <>
-      <section id="top" ref={ref} className="relative h-[230vh] bg-orange lg:h-[260vh]">
+      <section id="top" ref={ref} className="relative h-[170vh] bg-orange lg:h-[185vh]">
         <div className="sticky top-0 h-svh overflow-hidden">
-          <SplashScene progress={progress} className="absolute inset-0 size-full" />
+          <FarmersScene progress={progress} className="absolute inset-0 size-full" />
 
           <motion.div
             style={{ y: textY }}
@@ -90,7 +90,7 @@ export function Hero() {
               >
                 <ArrowDown className="size-4" />
               </motion.span>
-              Scroll to drop the beans
+              Scroll to toss the beans
             </motion.div>
           </motion.div>
         </div>
