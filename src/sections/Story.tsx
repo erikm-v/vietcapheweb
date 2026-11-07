@@ -5,13 +5,13 @@ import { LogoMark } from "../components/ui";
 import { mailto } from "../config";
 
 const letter =
-  "We started VietCaPhe to show Australia what *Vietnamese* *robusta* can really taste like. Whether you brewed it in a phin, an espresso machine, a plunger or a cold brew jar, you loved it and told us it tasted just like Vietnam. Thank you. Selling bag by bag, we could only ever reach so many kitchens. By supplying *roasters* with our green beans, the same coffee can reach *cafés,* *offices* and *homes* right across the country. More impact, more great robusta in Australia, and more people discovering what it can be.";
+  "We started VietCaPhe to show Australia what *Vietnamese* *robusta* can really taste like. Whether you brewed it in a phin, an espresso machine, a plunger or a cold brew jar, you loved it and told us it tasted just like Vietnam. Thank you. Selling bag by bag, we could only ever reach so many kitchens. By supplying *roasters* with our green, unroasted beans, their roasts can carry the same coffee into *cafés,* *offices* and *homes* right across the country. More impact, more great robusta in Australia, and more people discovering what it can be.";
 
 const notes = [
   {
     icon: Store,
     title: "Our online store has closed",
-    body: "We no longer sell roasted bags or brewing gear direct. Our beans now go to roasters instead.",
+    body: "We no longer sell roasted bags or brewing gear. Our beans now go green, unroasted, to roasters only.",
     card: "bg-orange text-ink",
     iconWrap: "bg-ink text-orange",
   },

@@ -1,7 +1,7 @@
 import { Marquee } from "../components/motion";
 
 const notes = ["Cocoa", "Roasted cashew", "Honey sweetness", "Syrupy body", "Deep & strong", "Holds up in milk"];
-const uses = ["Espresso blends", "Flat whites", "Cà phê sữa đá", "Cold brew", "Phin filter", "Office coffee"];
+const uses = ["Espresso blends", "Flat whites", "Cà phê sữa đá", "Cold brew", "Phin filter", "Single-origin espresso"];
 
 export function NotesBand() {
   return (

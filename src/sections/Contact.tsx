@@ -4,7 +4,7 @@ import { ArrowUpRight, Check, Copy, Send } from "lucide-react";
 import { Reveal, SplitText, ease } from "../components/motion";
 import { mailto, site } from "../config";
 
-const roles = ["Roaster", "Café / hospitality", "Green buyer", "Past customer", "Other"];
+const roles = ["Roaster", "Green buyer", "Past customer", "Other"];
 const interests = ["Honey processed (flagship)", "Gia Lai micro-lots", "Anaerobic lots", "Community lots"];
 const perks = [
   "Green samples for roasters",
@@ -39,7 +39,7 @@ export function Contact() {
           </h2>
           <Reveal delay={0.15}>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-cream/70">
-              Roaster, café, green buyer or just curious: tell us what you're working on and we'll come back with
+              Roasting robusta, or thinking about it? Tell us about your roastery and we'll come back with green
               samples, availability and pricing.
             </p>
 

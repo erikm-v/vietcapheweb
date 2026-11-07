@@ -7,7 +7,11 @@ import { site } from "../config";
 const faqs = [
   {
     q: "What happened to the VietCaPhe online store?",
-    a: `We've moved to wholesale. Instead of selling roasted bags direct, we now supply our green specialty robusta to Australian roasters, so far more people can enjoy it. If you have a question about a past order, email ${site.email}.`,
+    a: `We've moved to wholesale. Instead of selling roasted bags direct, we now supply our specialty robusta green (unroasted) to Australian roasters, so far more people can enjoy it. If you have a question about a past order, email ${site.email}.`,
+  },
+  {
+    q: "Do you sell roasted coffee, or supply cafés?",
+    a: "No. We only supply green, unroasted beans to roasters. If you run a café and want our robusta on your menu, ask your roaster to get in touch with us.",
   },
   {
     q: "Where can I still get VietCaPhe coffee to drink at home?",

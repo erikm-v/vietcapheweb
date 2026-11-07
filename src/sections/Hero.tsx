@@ -9,7 +9,8 @@ function Intro() {
   return (
     <>
       <p className="max-w-md text-lg leading-relaxed text-ink/80 sm:text-xl">
-        Honey-processed, specialty-grade robusta from Cu M'gar, Dak Lak, supplied green to roasters across Australia.
+        Honey-processed, specialty-grade robusta from Cu M'gar, Dak Lak. We supply it green (unroasted), only to
+        roasters across Australia.
       </p>
       <div className="mt-9 flex flex-wrap items-center gap-3">
         <Magnetic>
@@ -55,16 +56,16 @@ export function Hero() {
               </motion.a>
 
               <h1 className="mt-6 font-display text-[clamp(2.9rem,5.4vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.04em]">
-                <SplitText text="Specialty robusta," delay={0.4} className="block" />
+                <SplitText text="Green specialty robusta" delay={0.4} className="block" />
                 <span className="mt-2 block">
-                  <SplitText text="now" delay={0.6} />{" "}
+                  <SplitText text="for" delay={0.6} />{" "}
                   <motion.span
                     initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     transition={{ delay: 0.85, type: "spring", bounce: 0.45, duration: 0.9 }}
                     className="inline-block"
                   >
-                    <Mark>wholesale.</Mark>
+                    <Mark>roasters.</Mark>
                   </motion.span>
                 </span>
               </h1>

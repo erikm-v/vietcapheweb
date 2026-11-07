@@ -10,6 +10,7 @@ const spec = [
   ["Species", "Robusta (Coffea canephora)"],
   ["Process", "Honey"],
   ["Grade", "Specialty"],
+  ["Supplied", "Green (unroasted)"],
   ["Body", "Syrupy, deep and strong"],
   ["Roast range", "Medium to dark"],
 ];
@@ -19,7 +20,7 @@ const lots = [
     n: "02",
     title: "Gia Lai Honey",
     region: "Chu Pah & Dak Doa, Gia Lai",
-    body: "Small, traceable honey-processed lots from the Gia Lai highlands. Made for single-origin robusta espresso and feature coffees.",
+    body: "Small, traceable honey-processed lots from the Gia Lai highlands. For roasters building single-origin robusta espresso and feature coffees.",
     card: "bg-yellow text-ink",
     link: "text-ink",
   },
@@ -27,7 +28,7 @@ const lots = [
     n: "03",
     title: "Anaerobic Lots",
     region: "Gia Lai & Dak Lak",
-    body: "An anaerobic honey and an anaerobic natural. Fermented, expressive and available in small quantities, for cupping tables, barista training and limited releases.",
+    body: "An anaerobic honey and an anaerobic natural. Fermented, expressive and available in small quantities, for cupping tables and limited-release roasts.",
     card: "bg-ink text-cream",
     link: "text-orange",
   },
@@ -35,7 +36,7 @@ const lots = [
     n: "04",
     title: "Community Lots",
     region: "Cu M'gar, Dak Lak",
-    body: "Dependable Dak Lak robusta from Cu M'gar growing communities. A consistent base for house blends and high-volume programs.",
+    body: "Dependable Dak Lak robusta from Cu M'gar growing communities. A consistent base for house blends and high-volume roasting.",
     card: "bg-paper text-ink ring-2 ring-ink",
     link: "text-ink",
   },
@@ -52,7 +53,8 @@ export function Coffee() {
           <Reveal delay={0.15}>
             <p className="text-lg leading-relaxed text-ink/70">
               Our focus is specialty-grade, honey-processed robusta. Around it sits a small range of micro-lots,
-              fermented lots and dependable blend-base coffee, all from Vietnam's Central Highlands.
+              fermented lots and dependable blend-base coffee, all from Vietnam's Central Highlands. Everything ships
+              green, ready for your roaster.
             </p>
           </Reveal>
         </div>
@@ -82,9 +84,9 @@ export function Coffee() {
                   Cocoa, roasted cashew and honey, with a syrupy body that holds its own in milk.
                 </p>
 
-                <p className="mt-8 text-sm font-bold uppercase tracking-wide text-ink/60">Best in</p>
+                <p className="mt-8 text-sm font-bold uppercase tracking-wide text-ink/60">Roast it for</p>
                 <p className="mt-2 text-lg text-ink/85">
-                  Espresso blends, milk-based menus, phin and cà phê sữa đá, cold brew, office and hospitality.
+                  Espresso blends, milk-based menus, phin and cà phê sữa đá, cold brew.
                 </p>
 
                 <div className="mt-10 flex flex-wrap items-center gap-3">
