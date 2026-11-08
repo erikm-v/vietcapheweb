@@ -3,7 +3,7 @@ import logoSrc from "../assets/logo.png";
 
 /** The VietCaPhe mark. The source art is black; pass `white` when it sits on a dark background. */
 export function LogoMark({ className = "size-6", white = false }: { className?: string; white?: boolean }) {
-  return <img src={logoSrc} alt="" aria-hidden className={`${white ? "invert" : ""} ${className}`} draggable={false} />;
+  return <img src={logoSrc.src} alt="" aria-hidden className={`${white ? "invert" : ""} ${className}`} draggable={false} />;
 }
 
 export function Logo() {

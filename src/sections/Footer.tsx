@@ -4,10 +4,11 @@ import { Logo } from "../components/ui";
 import { mailto, site } from "../config";
 
 const explore = [
-  { href: "#story", label: "Our news" },
-  { href: "#coffee", label: "The coffee" },
-  { href: "#process", label: "Process" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/#story", label: "Our news" },
+  { href: "/#coffee", label: "The coffee" },
+  { href: "/#process", label: "Process" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export function Footer() {
@@ -42,7 +43,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-ink/75 underline-offset-4 transition hover:text-ink hover:underline">
+                <a href="/#contact" className="text-ink/75 underline-offset-4 transition hover:text-ink hover:underline">
                   Request a sample
                 </a>
               </li>

@@ -1,0 +1,35 @@
+---
+import { mailto } from "../../config";
+interface Props {
+  subject?: string;
+}
+const { subject = "Green sample request" } = Astro.props;
+---
+
+<section class="relative bg-ink pb-36 pt-20 text-cream sm:pb-44 sm:pt-24">
+  <div class="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+    <h2 class="font-display text-[clamp(2.4rem,5.4vw,4.8rem)] font-extrabold leading-[0.95] tracking-[-0.04em]">
+      Cup it on your <span class="text-orange">own roaster.</span>
+    </h2>
+    <div>
+      <p class="text-lg leading-relaxed text-cream/70">
+        We supply honey-processed specialty robusta green (unroasted) to roasters across Australia. Tell us about your
+        roastery and we'll send a green sample.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/#contact"
+          class="inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3.5 text-[15px] font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-[#ff7d33]"
+        >
+          Request a green sample ↗
+        </a>
+        <a
+          href={mailto(subject)}
+          class="inline-flex items-center gap-2 rounded-full border-2 border-cream/40 px-6 py-3.5 text-[15px] font-semibold text-cream transition hover:border-cream hover:bg-cream hover:text-ink"
+        >
+          Email us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

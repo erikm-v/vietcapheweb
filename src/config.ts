@@ -1,4 +1,8 @@
 export const site = {
+  name: "VietCaPhe",
+  url: "https://www.vietcaphe.com.au",
+  /** The one-line description of the business, used verbatim across pages, schema and llms.txt. */
+  entity: "VietCaPhe is an Australian supplier of green (unroasted) specialty Vietnamese robusta for roasters.",
   email: "info@vietcaphe.com.au",
   // Google Apps Script web app URL (ends in /exec), see apps-script/Code.gs. When empty, the contact form opens the visitor's email app instead.
   formEndpoint: "https://script.google.com/macros/s/AKfycbwaWr337s69S6TL1iPxgiTZXdl6-2a-q2M2GTxl-BaMJeC6scOHHLhOYuR0MkJBJplz/exec",

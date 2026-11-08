@@ -1,0 +1,18 @@
+---
+interface Props {
+  type?: "tip" | "note" | "watch";
+  title?: string;
+}
+const { type = "tip", title } = Astro.props;
+const styles = {
+  tip: "bg-yellow text-ink",
+  note: "bg-ink text-cream",
+  watch: "bg-orange text-ink",
+};
+const labels = { tip: "Roaster tip", note: "Good to know", watch: "Watch out" };
+---
+
+<aside class={`not-prose my-10 rounded-[1.75rem] p-6 sm:p-7 ${styles[type]}`}>
+  <p class="font-display text-sm font-bold uppercase tracking-wide opacity-70">{title ?? labels[type]}</p>
+  <div class="callout-body mt-2 text-[17px] leading-relaxed"><slot /></div>
+</aside>

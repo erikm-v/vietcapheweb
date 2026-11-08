@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import App from "../App";
+import { faqs } from "../sections/Faq";
+import { faqPage, graph, organization, website } from "../lib/seo";
+import { site } from "../config";
+
+const jsonLd = graph(organization, website, faqPage(faqs, `${site.url}/`));
+---
+
+<Base
+  title="VietCaPhe | Green specialty robusta for Australian roasters"
+  description="VietCaPhe has gone wholesale. Specialty-grade, honey-processed Vietnamese robusta from Cu M'gar, Dak Lak, supplied green (unroasted) to Australian roasters. Request a green sample."
+  path="/"
+  imageAlt="Green specialty robusta for roasters"
+  jsonLd={jsonLd}
+>
+  <App client:load />
+</Base>

@@ -1,0 +1,26 @@
+---
+description: How to come up with, write, build and SEO/AEO-optimise a VietCaPhe blog post. Use whenever asked for a blog idea, a new blog post, or edits to the blog.
+alwaysApply: false
+---
+
+# VietCaPhe blog posts
+
+Read `docs/blog/PLAYBOOK.md` before writing. Pick ideas from `docs/blog/IDEAS.md` and update it after publishing.
+
+## Non-negotiables (public content)
+- VietCaPhe sells **green, unroasted beans to roasters only**. Never imply we sell roasted coffee or supply cafés.
+- Never mention: the mill name or site, lot codes (GC…), trade names (Eco-premium, Honey SMOOTH, "Clean" lines), screen size, Highland Essence, VND/dong, or any VietCaPhe price.
+- Public benchmark prices (e.g. ICE robusta futures, ICO indicator) are fine with a dated, linked source.
+- Never invent customers, quotes, case studies or statistics. Case studies need real details from Erik.
+- Never name or quote customer reviewers.
+- Australian English, plain language, sentence-case headings, no em dashes.
+
+## Every post
+1. File: `src/content/blog/<keyword-slug>.mdx`, copied from `docs/blog/post-template.mdx`. The slug is the URL.
+2. Frontmatter passes the schema in `src/content.config.ts` (title ≤ 80, `seoTitle` ≤ 60 if needed, description 80–160, 3–6 takeaways, 3–6 FAQ, every factual claim's source in `sources`).
+3. H2s are the questions roasters actually ask. Each H2 opens with `<Answer>`: 40–60 words that make sense quoted alone.
+4. At least one bespoke interactive or animated graphic in `src/components/blog/`, used inside `<Figure label caption>` with `client:visible`. Reuse existing graphics where they fit.
+5. A comparison table or checklist wherever the topic allows.
+6. 3+ internal links (other posts, `/#coffee`, `/#process`, `/#contact`) and a closing sample CTA.
+7. `npm run build`, then check desktop + mobile in the browser, and `dist/og/<slug>.png`.
+8. Update `docs/blog/IDEAS.md` (move the idea to Published, add new ideas found while researching) and link to the new post from 1–2 older posts.

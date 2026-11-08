@@ -5,10 +5,11 @@ import { Logo } from "../components/ui";
 import { ease } from "../components/motion";
 
 const links = [
-  { href: "#story", label: "Our news" },
-  { href: "#coffee", label: "The coffee" },
-  { href: "#process", label: "Process" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/#story", label: "Our news" },
+  { href: "/#coffee", label: "The coffee" },
+  { href: "/#process", label: "Process" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export function Nav() {
@@ -32,7 +33,7 @@ export function Nav() {
           solid ? "bg-paper/90 shadow-[0_8px_30px_-10px_rgb(20_13_9/0.35)] backdrop-blur-xl" : "bg-transparent"
         }`}
       >
-        <a href="#top" aria-label="VietCaPhe home">
+        <a href="/" aria-label="VietCaPhe home">
           <Logo />
         </a>
 
@@ -59,7 +60,7 @@ export function Nav() {
 
         <div className="flex items-center gap-2">
           <a
-            href="#contact"
+            href="/#contact"
             className="group inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-cream transition hover:bg-black"
           >
             <span className="hidden sm:inline">Request a sample</span>
@@ -86,7 +87,7 @@ export function Nav() {
             transition={{ duration: 0.3, ease }}
             className="mx-auto mt-2 max-w-6xl rounded-3xl bg-paper p-3 shadow-xl md:hidden"
           >
-            {[...links, { href: "#contact", label: "Contact" }].map((l, i) => (
+            {[...links, { href: "/#contact", label: "Contact" }].map((l, i) => (
               <motion.a
                 key={l.href}
                 href={l.href}

@@ -1,0 +1,13 @@
+---
+interface Props {
+  label?: string;
+  caption?: string;
+}
+const { label, caption } = Astro.props;
+---
+
+<figure class="not-prose my-12 rounded-[2rem] bg-paper p-6 ring-2 ring-ink sm:p-9">
+  {label && <p class="mb-6 font-display text-sm font-bold uppercase tracking-wide text-orange">{label}</p>}
+  <slot />
+  {caption && <figcaption class="mt-7 border-t border-ink/10 pt-4 text-sm leading-relaxed text-ink/60">{caption}</figcaption>}
+</figure>

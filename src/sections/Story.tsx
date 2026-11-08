@@ -69,7 +69,9 @@ export function Story() {
             <div className="relative">
               <Tilt className="relative aspect-[4/5] overflow-hidden rounded-[2rem]">
                 <img
-                  src={bagImg}
+                  src={bagImg.src}
+                  width={bagImg.width}
+                  height={bagImg.height}
                   alt="A bag of VietCaPhe specialty robusta beside a clay teapot"
                   className="absolute inset-0 size-full object-cover object-[74%_center]"
                   loading="lazy"

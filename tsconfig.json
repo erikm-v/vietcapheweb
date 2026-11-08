@@ -11,8 +11,8 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "types": ["vite/client"]
+    "noUnusedParameters": true
   },
-  "include": ["src"]
+  "include": [".astro/types.d.ts", "src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["dist"]
 }

@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { Reveal, SplitText, ease } from "../components/motion";
 import { site } from "../config";
 
-const faqs = [
+export const faqs = [
   {
     q: "What happened to the VietCaPhe online store?",
     a: `We've moved to wholesale. Instead of selling roasted bags direct, we now supply our specialty robusta green (unroasted) to Australian roasters, so far more people can enjoy it. If you have a question about a past order, email ${site.email}.`,

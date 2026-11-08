@@ -1,0 +1,252 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { Nav } from "../../sections/Nav";
+import { Footer } from "../../sections/Footer";
+import ReadingProgress from "../../components/blog/ReadingProgress";
+import { PostCover } from "../../components/blog/PostCover";
+import PostCard from "../../components/blog/PostCard.astro";
+import SampleCta from "../../components/blog/SampleCta.astro";
+import { formatDate, getPosts, postPath, readingMinutes, related, type Post } from "../../lib/blog";
+import { absolute, breadcrumbs, faqPage, graph, organization } from "../../lib/seo";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content, headings } = await render(post);
+const d = post.data;
+const path = postPath(post);
+const url = absolute(path);
+const minutes = readingMinutes(post.body);
+const toc = headings.filter((h) => h.depth === 2);
+const more = related(post, await getPosts());
+const ogImage = `/og/${post.id}.png`;
+const wordCount = (post.body ?? "").split(/\s+/).filter(Boolean).length;
+
+const jsonLd = graph(
+  {
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: d.title,
+    description: d.description,
+    image: absolute(ogImage),
+    datePublished: d.pubDate.toISOString(),
+    dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
+    author: { "@id": organization["@id"] },
+    publisher: { "@id": organization["@id"] },
+    mainEntityOfPage: url,
+    articleSection: d.category,
+    keywords: d.tags.join(", "),
+    wordCount,
+    inLanguage: "en-AU",
+    isPartOf: { "@id": absolute("/blog/#blog") },
+    citation: d.sources.map((s) => s.url),
+  },
+  organization,
+  breadcrumbs([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog/" },
+    { name: d.title, path },
+  ]),
+  ...(d.faq.length ? [faqPage(d.faq, url)] : []),
+);
+
+const share = {
+  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+  email: `mailto:?subject=${encodeURIComponent(d.title)}&body=${encodeURIComponent(url)}`,
+};
+---
+
+<Base
+  title={`${d.seoTitle ?? d.title} | VietCaPhe`}
+  description={d.description}
+  path={path}
+  image={ogImage}
+  imageAlt={d.title}
+  type="article"
+  publishedTime={d.pubDate}
+  modifiedTime={d.updatedDate}
+  jsonLd={jsonLd}
+  themeColor="#f6eee2"
+>
+  <ReadingProgress client:load />
+  <Nav client:load />
+  <main>
+    <article>
+      <header class="bg-cream pt-32 sm:pt-40">
+        <div class="mx-auto max-w-5xl px-5 sm:px-8">
+          <nav aria-label="Breadcrumb" class="text-sm font-semibold text-ink/55">
+            <a href="/blog/" class="underline-offset-4 hover:text-ink hover:underline">Blog</a>
+            <span class="mx-2">/</span>
+            <span class="text-orange">{d.category}</span>
+          </nav>
+          <h1 class="mt-5 font-display text-[clamp(2.6rem,6.4vw,5.6rem)] font-extrabold leading-[0.95] tracking-[-0.04em]">
+            {d.title}
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink/70 sm:text-xl">{d.description}</p>
+          <p class="mt-6 flex flex-wrap gap-x-2 text-sm font-semibold text-ink/55">
+            <span>By the VietCaPhe team</span>
+            <span>·</span>
+            <time datetime={d.pubDate.toISOString()}>{formatDate(d.pubDate)}</time>
+            {d.updatedDate && <><span>·</span><span>Updated <time datetime={d.updatedDate.toISOString()}>{formatDate(d.updatedDate)}</time></span></>}
+            <span>·</span>
+            <span>{minutes} min read</span>
+          </p>
+        </div>
+        <div class="mx-auto mt-12 max-w-7xl px-5 sm:px-8">
+          <div class="relative aspect-[16/8] overflow-hidden rounded-[2.5rem]">
+            {
+              d.cover ? (
+                <img src={d.cover.src} width={d.cover.width} height={d.cover.height} alt={d.coverAlt ?? ""} class="absolute inset-0 size-full object-cover" />
+              ) : (
+                <PostCover seed={post.id} theme={d.coverTheme} animated className="absolute inset-0 size-full" />
+              )
+            }
+          </div>
+        </div>
+      </header>
+
+      <div class="bg-cream pb-24 pt-14 sm:pt-20">
+        <div class="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[14rem_minmax(0,44rem)] lg:justify-center lg:gap-16">
+          <aside class="hidden lg:block">
+            <div class="sticky top-28">
+              <p class="font-display text-sm font-bold uppercase tracking-wide text-ink/50">In this guide</p>
+              <ol class="toc mt-4 space-y-2.5 border-l-2 border-ink/10">
+                {
+                  toc.map((h) => (
+                    <li>
+                      <a href={`#${h.slug}`} data-toc={h.slug} class="-ml-[2px] block border-l-2 border-transparent pl-4 text-sm leading-snug text-ink/55 transition-colors hover:text-ink">
+                        {h.text}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ol>
+              <div class="mt-10 space-y-2 text-sm font-semibold">
+                <p class="font-display text-sm font-bold uppercase tracking-wide text-ink/50">Share</p>
+                <a href={share.linkedin} target="_blank" rel="noopener" class="block text-ink/65 hover:text-orange">LinkedIn ↗</a>
+                <a href={share.email} class="block text-ink/65 hover:text-orange">Email a colleague</a>
+                <button type="button" data-copy={url} class="block text-ink/65 hover:text-orange">Copy link</button>
+              </div>
+            </div>
+          </aside>
+
+          <div class="min-w-0">
+            <section aria-labelledby="takeaways" class="rounded-[2rem] bg-ink p-7 text-cream sm:p-9">
+              <h2 id="takeaways" class="font-display text-2xl font-bold tracking-tight text-yellow">Key takeaways</h2>
+              <ul class="mt-5 space-y-3">
+                {
+                  d.takeaways.map((t) => (
+                    <li class="flex gap-3 leading-relaxed text-cream/85">
+                      <span class="mt-2.5 size-2 shrink-0 rounded-full bg-orange" />
+                      <span>{t}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </section>
+
+            <div class="post-body mt-12">
+              <Content />
+            </div>
+
+            {
+              d.faq.length > 0 && (
+                <section aria-labelledby="faq" class="mt-16">
+                  <h2 id="faq" class="font-display text-[clamp(1.9rem,3.4vw,2.6rem)] font-extrabold tracking-tight">
+                    Frequently asked questions
+                  </h2>
+                  <div class="mt-6 border-t-2 border-ink">
+                    {d.faq.map((f, i) => (
+                      <details class="group border-b-2 border-ink" open={i === 0}>
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-display text-lg font-bold tracking-tight sm:text-xl">
+                          <h3>{f.q}</h3>
+                          <span class="grid size-9 shrink-0 place-items-center rounded-full bg-ink text-cream transition-transform group-open:rotate-45 group-open:bg-orange group-open:text-ink">+</span>
+                        </summary>
+                        <p class="pb-6 pr-12 leading-relaxed text-ink/75">{f.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              )
+            }
+
+            {
+              d.sources.length > 0 && (
+                <section aria-labelledby="sources" class="mt-14 rounded-[1.75rem] bg-paper p-6 ring-1 ring-ink/10 sm:p-8">
+                  <h2 id="sources" class="font-display text-lg font-bold">Sources and further reading</h2>
+                  <ol class="mt-4 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-ink/70">
+                    {d.sources.map((s) => (
+                      <li>
+                        <a href={s.url} target="_blank" rel="noopener" class="font-semibold text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-orange">
+                          {s.title}
+                        </a>{`, ${s.publisher}`}
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </article>
+
+    {
+      more.length > 0 && (
+        <section class="bg-cream pb-24">
+          <div class="mx-auto max-w-7xl border-t-2 border-ink px-5 pt-14 sm:px-8">
+            <h2 class="font-display text-3xl font-extrabold tracking-tight">Keep reading</h2>
+            <div class="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+              {more.map((p) => <PostCard post={p} />)}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <SampleCta subject={`Green sample request (from: ${d.title})`} />
+  </main>
+  <Footer client:visible />
+</Base>
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>("[data-toc]")];
+  const targets = links.map((l) => document.getElementById(l.dataset.toc!)).filter(Boolean) as HTMLElement[];
+  const setActive = (id: string) =>
+    links.forEach((l) => {
+      const on = l.dataset.toc === id;
+      l.classList.toggle("!border-orange", on);
+      l.classList.toggle("!text-ink", on);
+      l.classList.toggle("font-semibold", on);
+    });
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const line = window.innerHeight * 0.3;
+    const current = targets.filter((t) => t.getBoundingClientRect().top < line).pop();
+    setActive(current?.id ?? "");
+  };
+  addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    },
+    { passive: true },
+  );
+  update();
+
+  document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((b) =>
+    b.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(b.dataset.copy!);
+      const label = b.textContent;
+      b.textContent = "Link copied";
+      setTimeout(() => (b.textContent = label), 1800);
+    }),
+  );
+</script>

@@ -1,0 +1,40 @@
+---
+import { PostCover } from "./PostCover";
+import { formatDate, postPath, readingMinutes, type Post } from "../../lib/blog";
+
+interface Props {
+  post: Post;
+  large?: boolean;
+}
+const { post, large = false } = Astro.props;
+const { title, description, category, pubDate, cover, coverAlt, coverTheme } = post.data;
+---
+
+<a href={postPath(post)} class={`group block ${large ? "md:grid md:grid-cols-[1.25fr_1fr] md:items-center md:gap-12" : ""}`}>
+  <div class={`relative overflow-hidden rounded-[2rem] ${large ? "aspect-[16/10]" : "aspect-[16/10]"}`}>
+    {
+      cover ? (
+        <img
+          src={cover.src}
+          width={cover.width}
+          height={cover.height}
+          alt={coverAlt ?? ""}
+          loading={large ? "eager" : "lazy"}
+          class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+        />
+      ) : (
+        <PostCover seed={post.id} theme={coverTheme} className="absolute inset-0 size-full transition-transform duration-700 group-hover:scale-[1.04]" />
+      )
+    }
+  </div>
+  <div class={large ? "mt-6 md:mt-0" : "mt-5"}>
+    <p class="text-sm font-bold text-orange">{category}</p>
+    <h3 class={`mt-2 font-display font-extrabold leading-[1.02] tracking-tight transition-colors group-hover:text-orange ${large ? "text-[clamp(2rem,4vw,3.4rem)]" : "text-2xl sm:text-[1.7rem]"}`}>
+      {title}
+    </h3>
+    <p class={`mt-3 leading-relaxed text-ink/70 ${large ? "text-lg" : ""}`}>{description}</p>
+    <p class="mt-4 text-sm font-semibold text-ink/50">
+      {formatDate(pubDate)} · {readingMinutes(post.body)} min read
+    </p>
+  </div>
+</a>
